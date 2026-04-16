@@ -5,7 +5,7 @@ import ui_components
 import datetime
 
 # --- CONFIGURACIÓN ---
-st.set_page_config(page_title="Monitor de Mercado | + Copilot", page_icon="📈", layout="wide")
+st.set_page_config(page_title="Monitor de Mercado | RyC", page_icon="📈", layout="wide")
 ui_components.apply_custom_styles()
 ui_components.render_header()
 
