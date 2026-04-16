@@ -33,13 +33,37 @@ if not market_context:
 
 # --- INTERFAZ DE TABS ---
 tab_dolar, tab_bonos, tab_fci, tab_bcra = st.tabs([
-    "💵 Dólares y Riesgo", 
     "📜 Bonos y Letras", 
+    "💵 Dólares y Riesgo", 
     "🏦 FCIs (Rendimientos)", 
     "🏛️ BCRA e Indicadores"
 ])
 
-# 1. TAB: DOLARES Y RIESGO
+# 1. TAB: BONOS Y LETRAS
+with tab_bonos:
+    col_b1, col_b2 = st.columns(2)
+    
+    with col_b1:
+        st.subheader("Bonos Soberanos (USD)")
+        sovereign = market_context.get("sovereign_bonds", [])
+        if sovereign:
+            df_sov = pd.DataFrame(sovereign)
+            st.dataframe(df_sov[["symbol", "price_usd", "pct_change", "bid", "ask"]].sort_values("symbol"), 
+                         use_container_width=True, hide_index=True)
+        else:
+            st.warning("No hay datos de bonos soberanos.")
+
+    with col_b2:
+        st.subheader("LECAPs y BONCAPs")
+        lecap = market_context.get("lecap_boncap", [])
+        if lecap:
+            df_lecap = pd.DataFrame(lecap)
+            st.dataframe(df_lecap[["symbol", "type", "price", "bid", "ask"]], 
+                         use_container_width=True, hide_index=True)
+        else:
+            st.warning("No hay datos de LECAPs/BONCAPs.")
+
+# 2. TAB: DOLARES Y RIESGO
 with tab_dolar:
     st.subheader("Cotizaciones Principales")
     rates = market_context.get("exchange_rates", {})
@@ -70,30 +94,6 @@ with tab_dolar:
         st.subheader("Otras Monedas (BCRA)")
         df_bcra_rates = pd.DataFrame(bcra_rates["destacadas"])
         st.dataframe(df_bcra_rates[["nombre", "codigo", "cotizacion"]], use_container_width=True, hide_index=True)
-
-# 2. TAB: BONOS Y LETRAS
-with tab_bonos:
-    col_b1, col_b2 = st.columns(2)
-    
-    with col_b1:
-        st.subheader("Bonos Soberanos (USD)")
-        sovereign = market_context.get("sovereign_bonds", [])
-        if sovereign:
-            df_sov = pd.DataFrame(sovereign)
-            st.dataframe(df_sov[["symbol", "price_usd", "pct_change", "bid", "ask"]].sort_values("symbol"), 
-                         use_container_width=True, hide_index=True)
-        else:
-            st.warning("No hay datos de bonos soberanos.")
-
-    with col_b2:
-        st.subheader("LECAPs y BONCAPs")
-        lecap = market_context.get("lecap_boncap", [])
-        if lecap:
-            df_lecap = pd.DataFrame(lecap)
-            st.dataframe(df_lecap[["symbol", "type", "price", "bid", "ask"]], 
-                         use_container_width=True, hide_index=True)
-        else:
-            st.warning("No hay datos de LECAPs/BONCAPs.")
 
 # 3. TAB: FCIs (RENDIMIENTOS)
 with tab_fci:
