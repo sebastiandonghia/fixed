@@ -32,7 +32,7 @@ if not market_context:
     st.stop()
 
 # --- INTERFAZ DE TABS ---
-tab_dolar, tab_bonos, tab_fci, tab_bcra = st.tabs([
+tab_bonos, tab_dolar, tab_fci, tab_bcra = st.tabs([
     "📜 Bonos y Letras", 
     "💵 Dólares y Riesgo", 
     "🏦 FCIs (Rendimientos)", 
