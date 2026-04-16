@@ -15,7 +15,7 @@ def apply_custom_styles():
 
 def render_header():
     """Renderiza el encabezado principal de la aplicación."""
-    st.markdown("<div class='main-header'><h1>🏦 + Inversiones | Copilot</h1></div>", unsafe_allow_html=True)
+    st.markdown("<div class='main-header'><h1>🏦 Dashboard | Rentabilidad y Costos</h1></div>", unsafe_allow_html=True)
 
 def render_card(title, content):
     """Renderiza una tarjeta con estilo personalizado."""
